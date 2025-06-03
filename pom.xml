@@ -13,7 +13,8 @@
 	<groupId>com.smartpolice</groupId>
 	<artifactId>smart-police</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
+
 	<name>smartpolice</name>
 	<description>Smart Police Backend</description>
 	<url />
