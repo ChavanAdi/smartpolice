@@ -1,0 +1,34 @@
+package com.smartpolice.service;
+
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import com.smartpolice.constants.CaseStatus;
+import com.smartpolice.dto.ImageDto;
+import com.smartpolice.entity.EventImageDetails;
+
+public interface ImageService {
+	
+	//These Method Is Responsible for Saving Image Data With Details 
+	public EventImageDetails saveImage(ImageDto imageDto,MultipartFile file);
+	
+	public List<EventImageDetails> getAll();
+	public List<EventImageDetails> getAllUnresolvedCases();
+	public List<EventImageDetails> getAllResolvedCases();
+	public List<EventImageDetails> getAllInProgressCases();
+
+	/*
+	 All Following Methods Is Responsible To Getting Actual Count Cases
+	*/
+	public long getAllUnResolvedCasesCount();
+	public long getAllResolvedCasesCount();
+	public long getAllInProgressCasesCount();
+	
+	/*
+	  These Service Is Responsible to get one Object Based on CaseId and Status
+	
+	*/
+	
+	List<EventImageDetails> findOneRecordPerCaseIdByStatus(CaseStatus status);
+}
