@@ -2,6 +2,7 @@ package com.smartpolice.controller;
 
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +14,28 @@ import org.springframework.web.bind.annotation.RestController;
 import com.smartpolice.constants.CaseStatus;
 import com.smartpolice.dto.ImageDto;
 import com.smartpolice.entity.EventImageDetails;
+import com.smartpolice.service.DeviceService;
+import com.smartpolice.service.ImageService;
+import com.smartpolice.service.PoliceStationService;
+import com.smartpolice.service.ShopService;
+import com.smartpolice.service.UserService;
 import com.smartpolice.serviceImpl.ImageServiceImpl;
+import com.smartpolice.serviceImpl.PoliceStationImpl;
 
 @RestController
 @RequestMapping("/api/dashboard")
 public class SuperAdminDashBoardController {
 
 	@Autowired
-	ImageServiceImpl imageServiceImpl;
+	ImageService imageServiceImpl;
+	@Autowired
+	PoliceStationService policeStationImpl;
+	@Autowired
+    ShopService shopService;
+	@Autowired
+	DeviceService deviceService;
+	@Autowired
+	UserService userService;
 	
 	@GetMapping("/unresolved")
 	public ResponseEntity getAllUnResolvedCasesData()
@@ -92,5 +107,39 @@ public class SuperAdminDashBoardController {
 	{
 		List<EventImageDetails> getRecords = imageServiceImpl.findOneRecordPerCaseIdByStatus(CaseStatus.IN_PROGRESS);
 		return new ResponseEntity(getRecords,HttpStatus.OK);
+	}
+	
+	/*
+	
+	   following Api is Responsible For Counting All Count Like Police Station , Device ,User
+	   And Register Shops Count
+	*/	
+	
+	@GetMapping("/registeredpolicestationcount")
+	public ResponseEntity getRegisterPoliceStationCount()
+	{
+		long totalPoliceStationCount =policeStationImpl.getAllRegisteredPoliceStation();
+		return new ResponseEntity(totalPoliceStationCount,HttpStatus.OK);
+	}
+	
+	@GetMapping("/registeredshopcount")
+	public ResponseEntity getAllRegisteredShopCount()
+	{
+		long totalRegisteredShop = shopService.getTotalRegisteredShop();
+		return new ResponseEntity(totalRegisteredShop,HttpStatus.OK);
+	}
+	
+	@GetMapping("/registereddevicecount")
+	public ResponseEntity getAllRegisteredDeviceCount()
+	{
+		long allRegisteredDevice =deviceService.getAllRegisteredDerviceCount();
+    	return new ResponseEntity(allRegisteredDevice,HttpStatus.OK);
+	}
+	
+	@GetMapping("/registeredUserCount")
+	public ResponseEntity getAllRegisteredUserCount()
+	{
+		long allRegisteredUserCount = userService.getAllRegisteredUser();
+		return new ResponseEntity(allRegisteredUserCount,HttpStatus.OK);
 	}
 }

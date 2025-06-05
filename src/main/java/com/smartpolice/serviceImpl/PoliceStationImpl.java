@@ -2,6 +2,8 @@ package com.smartpolice.serviceImpl;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,7 @@ public class PoliceStationImpl implements PoliceStationService {
 		dataMaster.setPoliceStation_Location(policeStationDto.getPoliceStationLocation());
 		dataMaster.setPoliceStation_ContactNo(policeStationDto.getPoliceStation_ContactNo());
 		dataMaster.setPoliceStation_NoOfShops(policeStationDto.getPoliceStation_NoOfShops());
+		dataMaster.setPoliceStationAddress(policeStationDto.getPoliceStationAddress());
 		try {
 			dataMaster.setPoliceStation_Image(files.getBytes());
 		} catch (IOException e) {
@@ -68,4 +71,18 @@ public class PoliceStationImpl implements PoliceStationService {
 	public void deletePoliceStation(long id) {
 	     policeStationRepositry.deleteById(id);
 	}
+
+	@Override
+	public long getAllRegisteredPoliceStation() {
+		return policeStationRepositry.count();
+	}
+
+	@Override
+	public Map<Long, String> getPoliceStationIdAndName() {
+		List<PoliceStationDataMaster> allPoliceStationData =getAllPoliceStations();
+		Map<Long,String> allPoliceStationNameAndId=allPoliceStationData.stream().collect(Collectors.toMap(PoliceStationDataMaster::getPoliceStation_Id,PoliceStationDataMaster::getPoliceStation_Name));
+		return allPoliceStationNameAndId;
+	}
+	
+	
 }

@@ -10,8 +10,10 @@ import com.smartpolice.entity.EventImageDetails;
 
 public interface ImageService {
 	
-	//These Method Is Responsible for Saving Image Data With Details 
+	//Following Method Are Used To Performe CURD Application  
 	public EventImageDetails saveImage(ImageDto imageDto,MultipartFile file);
+	public EventImageDetails getImageDetailsById(long imageId);
+	//
 	
 	public List<EventImageDetails> getAll();
 	public List<EventImageDetails> getAllUnresolvedCases();
@@ -26,9 +28,11 @@ public interface ImageService {
 	public long getAllInProgressCasesCount();
 	
 	/*
-	  These Service Is Responsible to get one Object Based on CaseId and Status
-	
+	  Following  Method Is Responsible to get one Object Based on CaseId and Status
 	*/
 	
 	List<EventImageDetails> findOneRecordPerCaseIdByStatus(CaseStatus status);
+	
+    //Following Method is Responsible to get EventImageDetail Using CaseId and Status
+	List<EventImageDetails> findByCaseIdAndStatus(String caseId, CaseStatus status);
 }

@@ -24,6 +24,7 @@ public class PoliceStationDataMaster {
 	private String policeStation_Location;
 	private String policeStation_ContactNo;
 	private String policeStation_NoOfShops;
+	private String policeStationAddress; 
 	private boolean policeStation_IsLogin;
 	@Lob
 	@Column(columnDefinition = "LONGBLOB")
@@ -134,9 +135,20 @@ public class PoliceStationDataMaster {
 		this.allDeviceDataMaster = allDeviceDataMaster;
 	}
 
+	
+
+	public String getPoliceStationAddress() {
+		return policeStationAddress;
+	}
+
+	public void setPoliceStationAddress(String policeStationAddress) {
+		this.policeStationAddress = policeStationAddress;
+	}
+
+	
 	public PoliceStationDataMaster(long policeStation_Id, String policeStation_Name, String policeStation_Location,
-			String policeStation_ContactNo, String policeStation_NoOfShops, boolean policeStation_IsLogin,
-			byte[] policeStation_Image, SuperAdminDataMaster superAdminDataMaster,
+			String policeStation_ContactNo, String policeStation_NoOfShops, String policeStationAddress,
+			boolean policeStation_IsLogin, byte[] policeStation_Image, SuperAdminDataMaster superAdminDataMaster,
 			List<UserDataMaster> allUserDataMaster, List<ShopDataMaster> allshopDataMaster,
 			List<DeviceDataMaster> allDeviceDataMaster) {
 		super();
@@ -145,6 +157,7 @@ public class PoliceStationDataMaster {
 		this.policeStation_Location = policeStation_Location;
 		this.policeStation_ContactNo = policeStation_ContactNo;
 		this.policeStation_NoOfShops = policeStation_NoOfShops;
+		this.policeStationAddress = policeStationAddress;
 		this.policeStation_IsLogin = policeStation_IsLogin;
 		this.policeStation_Image = policeStation_Image;
 		this.superAdminDataMaster = superAdminDataMaster;

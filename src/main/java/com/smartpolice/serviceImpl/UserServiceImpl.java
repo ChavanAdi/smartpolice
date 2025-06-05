@@ -2,6 +2,8 @@ package com.smartpolice.serviceImpl;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,6 +68,19 @@ public class UserServiceImpl implements UserService{
 			throw new UserServiceException(400, "User Data Not Found");
 		}
 		return userDataMaster;
+	}
+	
+	@Override
+	public long getAllRegisteredUser() {
+	
+		return userRepositry.count();
+	}
+	
+	@Override
+	public Map<Long, String> getAllUserNameAndId() {
+		List<UserDataMaster> userDataMaster =	getUserDataMasterList();
+		Map<Long,String> allUserNameAndId  = userDataMaster.stream().collect(Collectors.toMap(UserDataMaster::getUserId, u->u.getUserFirstName()+" "+u.getUserLastName()));
+		return allUserNameAndId;
 	}
 
 }

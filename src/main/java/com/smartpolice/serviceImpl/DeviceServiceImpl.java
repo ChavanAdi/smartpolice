@@ -1,6 +1,7 @@
 package com.smartpolice.serviceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,6 +61,19 @@ public class DeviceServiceImpl implements DeviceService{
 	public List<DeviceDataMaster> getAllDevices() {
 	    List<DeviceDataMaster> DevicesData = deviceRepositry.findAll();
 		return DevicesData;
+	}
+	@Override
+	public long getAllRegisteredDerviceCount() {
+	
+		return deviceRepositry.count();
+	}
+	@Override
+	public DeviceDataMaster getDeviceByDeviceName(String deviceName) {
+		Optional<DeviceDataMaster> deviceDataMaster =deviceRepositry.findByDeviceName(deviceName);
+		if(deviceDataMaster.isEmpty())
+		{
+		}
+		return deviceDataMaster.get();
 	}
 
 }

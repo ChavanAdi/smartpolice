@@ -1,6 +1,7 @@
 package com.smartpolice.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,4 +45,12 @@ public class ShopController {
 		List<ShopDataMaster> shopsData=shopService.getAllShops();
 		return new ResponseEntity<List<ShopDataMaster>>(shopsData,HttpStatus.OK);
 	}
+	
+	@GetMapping("/getIdAndName")
+	public ResponseEntity getAllShopNameAndId()
+	{
+		Map<Long,String> allShopNameAndId = shopService.getShopNameAndId();
+		return new ResponseEntity(allShopNameAndId,HttpStatus.OK);
+	}
+	
 }

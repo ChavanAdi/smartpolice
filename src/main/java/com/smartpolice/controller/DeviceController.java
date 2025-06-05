@@ -46,4 +46,12 @@ public class DeviceController {
 		List<DeviceDataMaster> allDevices=deviceService.getAllDevices();
 		return new ResponseEntity(allDevices,HttpStatus.OK);
 	}
+	
+	@GetMapping("/getByName/{deviceName}")
+	public ResponseEntity getDeviceById(@PathVariable("deviceName") String deviceName)
+	{
+		DeviceDataMaster dataMaster = deviceService.getDeviceByDeviceName(deviceName);
+		return new ResponseEntity(dataMaster,HttpStatus.OK);
+	}
+	
 }

@@ -6,4 +6,5 @@ import com.smartpolice.entity.UserDataMaster;
 
 public interface UserRepositry extends JpaRepository<UserDataMaster, Long> {
 
+	long count();
 }

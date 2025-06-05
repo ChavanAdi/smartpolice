@@ -55,6 +55,9 @@ public class DeviceDataMaster {
 	@JsonIgnore
 	private List<HeartBeatDataMaster> allHeartBeatDataMaster;
 
+	@OneToMany(mappedBy = "deviceDataMaster",cascade=CascadeType.ALL)
+	@JsonIgnore
+	private List<EventImageDetails> allEventImageDataMaster;
 
 	public long getDeviceId() {
 		return deviceId;

@@ -194,12 +194,12 @@ public class MosquittoSubscribeCameraService {
 				            byte[] imageBytes = Base64.getDecoder().decode(payload.getImage());
 				            String randomFileName = UUID.randomUUID().toString() + ".jpg";
 				            CustomMultipartFile file = new CustomMultipartFile(imageBytes, randomFileName, "image/jpeg");
-				            String deviceId = payload.getDeviceId();
+				            String deviceName = payload.getDeviceId();
 				            String time = payload.getTime();
 				            String date= payload.getDate();
 				            String incidentId = payload.getIncedentId();
 				            ImageDto imageDto = new ImageDto();
-				            imageDto.setDeviceId(deviceId);
+				            imageDto.setDeviceName(deviceName);
 				            imageDto.setCaseGeneratedTime(LocalTime.parse(time));
 				            imageDto.setCaseGeneratedDate(LocalDate.parse(date));
 				            imageDto.setCaseId(incidentId);

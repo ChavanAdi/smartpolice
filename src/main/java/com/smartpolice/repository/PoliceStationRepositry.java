@@ -7,4 +7,6 @@ import com.smartpolice.entity.PoliceStationDataMaster;
 
 @Repository
 public interface PoliceStationRepositry extends JpaRepository<PoliceStationDataMaster,Long>{
+	
+	long count();
 }

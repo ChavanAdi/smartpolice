@@ -9,7 +9,7 @@ public class ImageDto {
 	
 	private long imageId;
 	private byte[] data;
-	private String deviceId;
+	private String deviceName;
 	private String caseId;
 	private String location;
 	private LocalTime caseGeneratedTime;
@@ -18,8 +18,8 @@ public class ImageDto {
     private LocalDate inProgressStatusDate;
     private LocalTime resolvedStatusTiming;
     private LocalDate resolveStatusDate;
-	private String  status;
-
+	private CaseStatus status;
+	
 	
 	public long getImageId() {
 		return imageId;
@@ -41,13 +41,13 @@ public class ImageDto {
 	}
 
 
-	public String getDeviceId() {
-		return deviceId;
+	public String getDeviceName() {
+		return deviceName;
 	}
 
 
-	public void setDeviceId(String deviceId) {
-		this.deviceId = deviceId;
+	public void setDeviceName(String deviceName) {
+		this.deviceName = deviceName;
 	}
 
 
@@ -131,16 +131,25 @@ public class ImageDto {
 	}
 
 
+	public CaseStatus getStatus() {
+		return status;
+	}
 
 
-	public ImageDto(long imageId, byte[] data, String deviceId, String caseId, String location,
+	public void setStatus(CaseStatus status) {
+		this.status = status;
+	}
+
+
+	public ImageDto(long imageId, byte[] data, String deviceName, String caseId, String location,
 			LocalTime caseGeneratedTime, LocalDate caseGeneratedDate, LocalTime inProgressStatusTime,
 			LocalDate inProgressStatusDate, LocalTime resolvedStatusTiming, LocalDate resolveStatusDate,
-			String status) {
+			CaseStatus status) {
 		super();
 		this.imageId = imageId;
 		this.data = data;
-		this.deviceId = deviceId;
+		
+		this.deviceName = deviceName;
 		this.caseId = caseId;
 		this.location = location;
 		this.caseGeneratedTime = caseGeneratedTime;
@@ -153,20 +162,13 @@ public class ImageDto {
 	}
 
 
-	public String getStatus() {
-		return status;
-	}
-
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-
 	public ImageDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	
+	
+
 	
 }

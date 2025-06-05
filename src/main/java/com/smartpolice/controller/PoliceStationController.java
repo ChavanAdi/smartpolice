@@ -1,6 +1,7 @@
 package com.smartpolice.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,5 +53,14 @@ public class PoliceStationController {
 	public ResponseEntity deletePoliceStation(@PathVariable("id") long policeStationId) {
 		policeStationImpl.deletePoliceStation(policeStationId);
 		return new ResponseEntity(policeStationId + " Id Police Station Successfully Remoed", HttpStatus.OK);
+	}
+	
+	//Following Api is Responsible Get All PoliceStation Id and PoliceStation Name 
+	
+	@GetMapping("/getIdAndName")
+	public ResponseEntity getAllPoliceStationNameAndId()
+	{
+		 Map<Long,String> allPoliceStationIsAndName = policeStationImpl.getPoliceStationIdAndName();
+		return new ResponseEntity(allPoliceStationIsAndName,HttpStatus.OK);
 	}
 }

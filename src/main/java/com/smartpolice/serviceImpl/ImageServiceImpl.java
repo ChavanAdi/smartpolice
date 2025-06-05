@@ -3,6 +3,7 @@ package com.smartpolice.serviceImpl;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.smartpolice.config.ConfigurationService;
 import com.smartpolice.constants.CaseStatus;
 import com.smartpolice.dto.ImageDto;
+import com.smartpolice.entity.DeviceDataMaster;
 import com.smartpolice.entity.EventImageDetails;
 import com.smartpolice.exceptionhandler.ImageServiceException;
 import com.smartpolice.repository.ImageRepositry;
@@ -24,25 +26,36 @@ public class ImageServiceImpl implements ImageService {
 
 	@Autowired
 	ImageRepositry imageRepositry;
+	@Autowired
+	DeviceServiceImpl deviceServiceImpl;
 
 	@Override
 	public EventImageDetails saveImage(ImageDto imageDto, MultipartFile file) {
+		
+		DeviceDataMaster deviceDetail = deviceServiceImpl.getDeviceByDeviceName(imageDto.getDeviceName());
 		EventImageDetails imageDetails = new EventImageDetails();
 		try {
 			imageDetails.setFilename(file.getOriginalFilename());
 			imageDetails.setContentType(file.getContentType());
 			imageDetails.setData(file.getBytes());
-			imageDetails.setDeviceId(imageDto.getDeviceId());
+			imageDetails.setDeviceName(imageDto.getDeviceName());
 			imageDetails.setCaseId(imageDto.getCaseId());
 			imageDetails.setCaseActualTime(LocalTime.now());
 			imageDetails.setCaseGeneratedDate(LocalDate.now());
 			imageDetails.setStatus(CaseStatus.UNRESOLVED);
+			imageDetails.setDeviceDataMaster(deviceDetail);
 
 		} catch (Exception e) {
 			new ImageServiceException(400, "Image Not Saved to Database");
 		}
 		imageRepositry.save(imageDetails);
 		return imageDetails;
+	}
+	
+	@Override
+	public EventImageDetails getImageDetailsById(long imageId) {
+	    Optional<EventImageDetails> imageData = imageRepositry.findById(imageId);
+		return imageData.get();
 	}
 
 	@Override
@@ -103,6 +116,17 @@ public class ImageServiceImpl implements ImageService {
 		List<EventImageDetails> getOneRecordPerCase=imageRepositry.findOneRecordPerCaseIdByStatus(status);
 		return getOneRecordPerCase;
 	}
+
+	
+	//Following Method is responsible to get EventImageDetails Using CaseId and Status
+	
+	@Override
+	public List<EventImageDetails> findByCaseIdAndStatus(String caseId, CaseStatus status) {
+		List<EventImageDetails> allImagesBasedOnStatusAndCaseId= imageRepositry.findByCaseIdAndStatus(caseId, status);
+		 return	allImagesBasedOnStatusAndCaseId;	
+	}
+
+	
 	
 	
 }

@@ -8,6 +8,7 @@ public class PoliceStationDto {
 	private String policeStation_ContactNo;
 	private String policeStation_NoOfShops;
 	private String policeStation_IsLogin;
+	private String policeStationAddress;
 	private byte[] image;
 	public long getAdminId() {
 		return adminId;
@@ -39,7 +40,12 @@ public class PoliceStationDto {
 	public void setPoliceStation_NoOfShops(String policeStation_NoOfShops) {
 		this.policeStation_NoOfShops = policeStation_NoOfShops;
 	}
-
+	public String getPoliceStationAddress() {
+		return policeStationAddress;
+	}
+	public void setPoliceStationAddress(String policeStationAddress) {
+		this.policeStationAddress = policeStationAddress;
+	}
 	public String getPoliceStation_IsLogin() {
 		return policeStation_IsLogin;
 	}
@@ -53,9 +59,10 @@ public class PoliceStationDto {
 		this.image = image;
 	}
 	
+	
 	public PoliceStationDto(long adminId, String policeStationName, String policeStationLocation,
 			String policeStation_ContactNo, String policeStation_NoOfShops, String policeStation_IsLogin,
-			byte[] image) {
+			String policeStationAddress, byte[] image) {
 		super();
 		this.adminId = adminId;
 		this.policeStationName = policeStationName;
@@ -63,6 +70,7 @@ public class PoliceStationDto {
 		this.policeStation_ContactNo = policeStation_ContactNo;
 		this.policeStation_NoOfShops = policeStation_NoOfShops;
 		this.policeStation_IsLogin = policeStation_IsLogin;
+		this.policeStationAddress = policeStationAddress;
 		this.image = image;
 	}
 	public PoliceStationDto() {

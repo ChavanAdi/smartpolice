@@ -2,6 +2,8 @@ package com.smartpolice.serviceImpl;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -77,5 +79,20 @@ public class ShopDataMasterServiceImpl implements ShopService {
 		}
 		return shopsDataMaster;
 	}
+
+	@Override
+	public long getTotalRegisteredShop() {
+		 long totalRegisteredShop =shopRepositry.count();
+		return totalRegisteredShop;
+	}
+
+	@Override
+	public Map<Long, String> getShopNameAndId() {
+		List<ShopDataMaster> shopsDataMaster =getAllShops();
+		 Map<Long,String> allShopNameAndId = shopsDataMaster.stream().collect(Collectors.toMap(ShopDataMaster::getShopId, u->u.getShopName()+","+u.getShopAddress()));
+		return allShopNameAndId;
+	}
+	
+	
 
 }

@@ -1,6 +1,7 @@
 package com.smartpolice.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ import com.smartpolice.entity.UserDataMaster;
 import com.smartpolice.serviceImpl.UserServiceImpl;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("api/user")
 public class UserController {
 
 	@Autowired
@@ -42,5 +43,12 @@ public class UserController {
 	public ResponseEntity<List<UserDataMaster>> addUserDetails() {
 		List<UserDataMaster> userData = userServiceImpl.getUserDataMasterList();
 		return new ResponseEntity<List<UserDataMaster>>(userData, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getIdAndName")
+	public ResponseEntity getAllUserNameAndId()
+	{
+		Map<Long,String> allUserIdAndName=userServiceImpl.getAllUserNameAndId();
+		return new ResponseEntity(allUserIdAndName,HttpStatus.OK);
 	}
 }
