@@ -1,5 +1,6 @@
 package com.smartpolice.entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -27,6 +28,7 @@ public class UserDataMaster {
 	private String userMoNumber;
 	private String noOfShops;
 	private String isLogin;
+	private LocalDateTime registratDateTime;
 	@Lob
 	@Column(columnDefinition = "LONGBLOB")
 	private byte[] userIamge;
@@ -49,11 +51,19 @@ public class UserDataMaster {
 	@JsonIgnore
 	private List<DeviceDataMaster> allDeviceDataMasters;
 	
+	@OneToMany(mappedBy = "userDataMaster",cascade=CascadeType.ALL)
+	@JsonIgnore
+	private List<EventImageDetails> allEventImageDataMaster;
+
 	
+
+
 
 	public long getUserId() {
 		return userId;
 	}
+
+
 
 
 
@@ -63,9 +73,13 @@ public class UserDataMaster {
 
 
 
+
+
 	public String getUserFirstName() {
 		return userFirstName;
 	}
+
+
 
 
 
@@ -75,9 +89,13 @@ public class UserDataMaster {
 
 
 
+
+
 	public String getUserLastName() {
 		return userLastName;
 	}
+
+
 
 
 
@@ -87,9 +105,13 @@ public class UserDataMaster {
 
 
 
+
+
 	public String getUserAddress() {
 		return userAddress;
 	}
+
+
 
 
 
@@ -99,9 +121,13 @@ public class UserDataMaster {
 
 
 
+
+
 	public String getUserMoNumber() {
 		return userMoNumber;
 	}
+
+
 
 
 
@@ -111,9 +137,13 @@ public class UserDataMaster {
 
 
 
+
+
 	public String getNoOfShops() {
 		return noOfShops;
 	}
+
+
 
 
 
@@ -123,9 +153,13 @@ public class UserDataMaster {
 
 
 
+
+
 	public String getIsLogin() {
 		return isLogin;
 	}
+
+
 
 
 
@@ -135,9 +169,13 @@ public class UserDataMaster {
 
 
 
+
+
 	public byte[] getUserIamge() {
 		return userIamge;
 	}
+
+
 
 
 
@@ -147,9 +185,13 @@ public class UserDataMaster {
 
 
 
+
+
 	public SuperAdminDataMaster getSuperAdminDataMaster() {
 		return superAdminDataMaster;
 	}
+
+
 
 
 
@@ -159,9 +201,13 @@ public class UserDataMaster {
 
 
 
+
+
 	public PoliceStationDataMaster getPoliceStationDataMaster() {
 		return policeStationDataMaster;
 	}
+
+
 
 
 
@@ -171,9 +217,13 @@ public class UserDataMaster {
 
 
 
+
+
 	public List<ShopDataMaster> getAllShopDataMaster() {
 		return allShopDataMaster;
 	}
+
+
 
 
 
@@ -183,9 +233,13 @@ public class UserDataMaster {
 
 
 
+
+
 	public List<DeviceDataMaster> getAllDeviceDataMasters() {
 		return allDeviceDataMasters;
 	}
+
+
 
 
 
@@ -193,13 +247,52 @@ public class UserDataMaster {
 		this.allDeviceDataMasters = allDeviceDataMasters;
 	}
 
+
+
+
+
+	public List<EventImageDetails> getAllEventImageDataMaster() {
+		return allEventImageDataMaster;
+	}
+
+
+
+
+
+	public void setAllEventImageDataMaster(List<EventImageDetails> allEventImageDataMaster) {
+		this.allEventImageDataMaster = allEventImageDataMaster;
+	}
+
+
+
+
+
 	
 
 
+
+
+	public LocalDateTime getRegistratDateTime() {
+		return registratDateTime;
+	}
+
+
+
+
+
+	public void setRegistratDateTime(LocalDateTime registratDateTime) {
+		this.registratDateTime = registratDateTime;
+	}
+
+
+
+
+
 	public UserDataMaster(long userId, String userFirstName, String userLastName, String userAddress,
-			String userMoNumber, String noOfShops, String isLogin, byte[] userIamge,
+			String userMoNumber, String noOfShops, String isLogin, LocalDateTime registratDateTime, byte[] userIamge,
 			SuperAdminDataMaster superAdminDataMaster, PoliceStationDataMaster policeStationDataMaster,
-			List<ShopDataMaster> allShopDataMaster, List<DeviceDataMaster> allDeviceDataMasters) {
+			List<ShopDataMaster> allShopDataMaster, List<DeviceDataMaster> allDeviceDataMasters,
+			List<EventImageDetails> allEventImageDataMaster) {
 		super();
 		this.userId = userId;
 		this.userFirstName = userFirstName;
@@ -208,12 +301,16 @@ public class UserDataMaster {
 		this.userMoNumber = userMoNumber;
 		this.noOfShops = noOfShops;
 		this.isLogin = isLogin;
+		this.registratDateTime = registratDateTime;
 		this.userIamge = userIamge;
 		this.superAdminDataMaster = superAdminDataMaster;
 		this.policeStationDataMaster = policeStationDataMaster;
 		this.allShopDataMaster = allShopDataMaster;
 		this.allDeviceDataMasters = allDeviceDataMasters;
+		this.allEventImageDataMaster = allEventImageDataMaster;
 	}
+
+
 
 
 

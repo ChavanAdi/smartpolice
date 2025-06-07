@@ -1,5 +1,6 @@
 package com.smartpolice.entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,6 +30,7 @@ public class ShopDataMaster {
 	private String shopLocation;
 	private String isActive;
 	private String shopClosingTime;
+	private LocalDateTime registrationDate;
 	@Lob
 	@Column(columnDefinition = "LONGBLOB")
 	private byte[] shopImage;
@@ -51,6 +53,10 @@ public class ShopDataMaster {
 	@OneToMany(mappedBy = "shopDataMaster",cascade=CascadeType.ALL)
 	@JsonIgnore
 	private List<DeviceDataMaster> allDeviceDataMasters;
+	
+	@OneToMany(mappedBy = "shopDataMaster",cascade=CascadeType.ALL)
+	@JsonIgnore
+	private List<EventImageDetails> allEventImageDataMaster;
 	
 	
 	public long getShopId() {
@@ -193,10 +199,34 @@ public class ShopDataMaster {
 	}
 
 
+	public List<EventImageDetails> getAllEventImageDataMaster() {
+		return allEventImageDataMaster;
+	}
+
+
+	public void setAllEventImageDataMaster(List<EventImageDetails> allEventImageDataMaster) {
+		this.allEventImageDataMaster = allEventImageDataMaster;
+	}
+
+	
+
+	public LocalDateTime getRegistrationDate() {
+		return registrationDate;
+	}
+
+
+	public void setRegistrationDate(LocalDateTime registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+
+
+
+
 	public ShopDataMaster(long shopId, String shopName, String shopKeeperName, String noOfEmployee, String shopMoNumber,
-			String shopAddress, String shopLocation, String isActive, String shopClosingTime, byte[] shopImage,
-			SuperAdminDataMaster superAdminDataMaster, PoliceStationDataMaster policeStationDataMaster,
-			UserDataMaster userDataMaster, List<DeviceDataMaster> allDeviceDataMasters) {
+			String shopAddress, String shopLocation, String isActive, String shopClosingTime,
+			LocalDateTime registrationDate, byte[] shopImage, SuperAdminDataMaster superAdminDataMaster,
+			PoliceStationDataMaster policeStationDataMaster, UserDataMaster userDataMaster,
+			List<DeviceDataMaster> allDeviceDataMasters, List<EventImageDetails> allEventImageDataMaster) {
 		super();
 		this.shopId = shopId;
 		this.shopName = shopName;
@@ -207,11 +237,13 @@ public class ShopDataMaster {
 		this.shopLocation = shopLocation;
 		this.isActive = isActive;
 		this.shopClosingTime = shopClosingTime;
+		this.registrationDate = registrationDate;
 		this.shopImage = shopImage;
 		this.superAdminDataMaster = superAdminDataMaster;
 		this.policeStationDataMaster = policeStationDataMaster;
 		this.userDataMaster = userDataMaster;
 		this.allDeviceDataMasters = allDeviceDataMasters;
+		this.allEventImageDataMaster = allEventImageDataMaster;
 	}
 
 

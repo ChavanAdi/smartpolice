@@ -34,9 +34,10 @@ public interface ImageRepositry extends JpaRepository<EventImageDetails, Long>{
 		suppose i have 20 entries for one case that time they give only one object or first f them
 	*/
 	
-	@Query("SELECT e FROM EventImageDetails e WHERE e.id IN (" +
-		       "SELECT MIN(e2.id) FROM EventImageDetails e2 WHERE e2.status = :status GROUP BY e2.caseId)")
-		List<EventImageDetails> findOneRecordPerCaseIdByStatus(@Param("status") CaseStatus status);
+	@Query("SELECT e FROM EventImageDetails e WHERE e.id IN ("
+			+ "SELECT MIN(e2.id) FROM EventImageDetails e2 WHERE e2.status = :status GROUP BY e2.caseId)")
+	List<EventImageDetails> findOneRecordPerCaseIdByStatus(@Param("status") CaseStatus status);
+		
 	
 	//following Method is reponsible to get evenetImageDetails By Using CaseId and Status
 	List<EventImageDetails> findByCaseIdAndStatus(String caseId, CaseStatus status);

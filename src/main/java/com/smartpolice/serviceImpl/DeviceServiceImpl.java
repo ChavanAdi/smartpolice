@@ -1,5 +1,6 @@
 package com.smartpolice.serviceImpl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +41,6 @@ public class DeviceServiceImpl implements DeviceService{
 		dataMaster.setDeviceName(deviceDto.getDeviceName());
 		dataMaster.setDeviceType(deviceDto.getDeviceType());
 		dataMaster.setIsActivate(deviceDto.getIsActivate());
-		dataMaster.setInstallDate(deviceDto.getInstallDate());
 		dataMaster.setIsInstall(deviceDto.getIsInstall());
 		dataMaster.setDeviceDesciption(deviceDto.getDeviceDesciption());
 		dataMaster.setDeviceLocation(deviceDto.getDeviceLocation());
@@ -48,6 +48,7 @@ public class DeviceServiceImpl implements DeviceService{
 		dataMaster.setPoliceStationDataMaster(policeStationDataMaster);
 		dataMaster.setUserDataMaster(userDataMaster);
 		dataMaster.setShopDataMaster(shopDataMaster);
+		dataMaster.setRegistrationDate(LocalDateTime.now());
 		
 		deviceRepositry.save(dataMaster);
 		return dataMaster;

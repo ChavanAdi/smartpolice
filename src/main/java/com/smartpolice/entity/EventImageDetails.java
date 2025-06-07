@@ -42,13 +42,37 @@ public class EventImageDetails {
 	private CaseStatus status;
 	
 	@ManyToOne
-	@JoinColumn(name = "mapDeviceId")
+	@JoinColumn(name = "adminId")
+	@JsonIgnore
+	private SuperAdminDataMaster superAdminDataMaster;
+	
+	@ManyToOne
+	@JoinColumn(name = "policeStation_Id")
+	@JsonIgnore
+	private PoliceStationDataMaster policeStationDataMaster;
+	
+	@ManyToOne
+	@JoinColumn(name = "userId")
+	@JsonIgnore
+	private UserDataMaster userDataMaster;
+	
+	@ManyToOne
+	@JoinColumn(name = "shopId")
+	@JsonIgnore
+	private ShopDataMaster shopDataMaster;
+
+
+	@ManyToOne
+	@JoinColumn(name = "deviceId")
+	@JsonIgnore
 	private DeviceDataMaster deviceDataMaster;
+	
 
-
+	
 	public long getImageId() {
 		return imageId;
 	}
+
 
 
 	public void setImageId(long imageId) {
@@ -56,9 +80,13 @@ public class EventImageDetails {
 	}
 
 
+
+	
+
 	public String getFilename() {
 		return filename;
 	}
+
 
 
 	public void setFilename(String filename) {
@@ -66,9 +94,11 @@ public class EventImageDetails {
 	}
 
 
+
 	public String getContentType() {
 		return contentType;
 	}
+
 
 
 	public void setContentType(String contentType) {
@@ -76,9 +106,11 @@ public class EventImageDetails {
 	}
 
 
+
 	public byte[] getData() {
 		return data;
 	}
+
 
 
 	public void setData(byte[] data) {
@@ -86,9 +118,11 @@ public class EventImageDetails {
 	}
 
 
+
 	public String getDeviceName() {
 		return deviceName;
 	}
+
 
 
 	public void setDeviceName(String deviceName) {
@@ -96,9 +130,11 @@ public class EventImageDetails {
 	}
 
 
+
 	public String getCaseId() {
 		return caseId;
 	}
+
 
 
 	public void setCaseId(String caseId) {
@@ -106,9 +142,11 @@ public class EventImageDetails {
 	}
 
 
+
 	public String getLocation() {
 		return location;
 	}
+
 
 
 	public void setLocation(String location) {
@@ -116,9 +154,11 @@ public class EventImageDetails {
 	}
 
 
+
 	public LocalDate getCaseGeneratedDate() {
 		return caseGeneratedDate;
 	}
+
 
 
 	public void setCaseGeneratedDate(LocalDate caseGeneratedDate) {
@@ -126,9 +166,11 @@ public class EventImageDetails {
 	}
 
 
+
 	public LocalTime getCaseReceivingTime() {
 		return caseReceivingTime;
 	}
+
 
 
 	public void setCaseReceivingTime(LocalTime caseReceivingTime) {
@@ -136,9 +178,11 @@ public class EventImageDetails {
 	}
 
 
+
 	public LocalTime getCaseActualTime() {
 		return caseActualTime;
 	}
+
 
 
 	public void setCaseActualTime(LocalTime caseActualTime) {
@@ -146,9 +190,11 @@ public class EventImageDetails {
 	}
 
 
+
 	public LocalTime getCaseInProgressStatusTime() {
 		return caseInProgressStatusTime;
 	}
+
 
 
 	public void setCaseInProgressStatusTime(LocalTime caseInProgressStatusTime) {
@@ -156,9 +202,11 @@ public class EventImageDetails {
 	}
 
 
+
 	public LocalDate getCaseInProgressStatusDate() {
 		return caseInProgressStatusDate;
 	}
+
 
 
 	public void setCaseInProgressStatusDate(LocalDate caseInProgressStatusDate) {
@@ -166,9 +214,11 @@ public class EventImageDetails {
 	}
 
 
+
 	public LocalTime getCaseResolvedStatusTime() {
 		return caseResolvedStatusTime;
 	}
+
 
 
 	public void setCaseResolvedStatusTime(LocalTime caseResolvedStatusTime) {
@@ -176,9 +226,11 @@ public class EventImageDetails {
 	}
 
 
+
 	public LocalDate getCaseResolvedStatusDate() {
 		return caseResolvedStatusDate;
 	}
+
 
 
 	public void setCaseResolvedStatusDate(LocalDate caseResolvedStatusDate) {
@@ -186,9 +238,11 @@ public class EventImageDetails {
 	}
 
 
+
 	public CaseStatus getStatus() {
 		return status;
 	}
+
 
 
 	public void setStatus(CaseStatus status) {
@@ -196,9 +250,59 @@ public class EventImageDetails {
 	}
 
 
+
+	public SuperAdminDataMaster getSuperAdminDataMaster() {
+		return superAdminDataMaster;
+	}
+
+
+
+	public void setSuperAdminDataMaster(SuperAdminDataMaster superAdminDataMaster) {
+		this.superAdminDataMaster = superAdminDataMaster;
+	}
+
+
+
+	public PoliceStationDataMaster getPoliceStationDataMaster() {
+		return policeStationDataMaster;
+	}
+
+
+
+	public void setPoliceStationDataMaster(PoliceStationDataMaster policeStationDataMaster) {
+		this.policeStationDataMaster = policeStationDataMaster;
+	}
+
+
+
+	public UserDataMaster getUserDataMaster() {
+		return userDataMaster;
+	}
+
+
+
+	public void setUserDataMaster(UserDataMaster userDataMaster) {
+		this.userDataMaster = userDataMaster;
+	}
+
+
+
+	public ShopDataMaster getShopDataMaster() {
+		return shopDataMaster;
+	}
+
+
+
+	public void setShopDataMaster(ShopDataMaster shopDataMaster) {
+		this.shopDataMaster = shopDataMaster;
+	}
+
+
+
 	public DeviceDataMaster getDeviceDataMaster() {
 		return deviceDataMaster;
 	}
+
 
 
 	public void setDeviceDataMaster(DeviceDataMaster deviceDataMaster) {
@@ -206,11 +310,17 @@ public class EventImageDetails {
 	}
 
 
+
+
+
+
+
 	public EventImageDetails(long imageId, String filename, String contentType, byte[] data, String deviceName,
 			String caseId, String location, LocalDate caseGeneratedDate, LocalTime caseReceivingTime,
 			LocalTime caseActualTime, LocalTime caseInProgressStatusTime, LocalDate caseInProgressStatusDate,
 			LocalTime caseResolvedStatusTime, LocalDate caseResolvedStatusDate, CaseStatus status,
-			DeviceDataMaster deviceDataMaster) {
+			SuperAdminDataMaster superAdminDataMaster, PoliceStationDataMaster policeStationDataMaster,
+			UserDataMaster userDataMaster, ShopDataMaster shopDataMaster, DeviceDataMaster deviceDataMaster) {
 		super();
 		this.imageId = imageId;
 		this.filename = filename;
@@ -227,8 +337,13 @@ public class EventImageDetails {
 		this.caseResolvedStatusTime = caseResolvedStatusTime;
 		this.caseResolvedStatusDate = caseResolvedStatusDate;
 		this.status = status;
+		this.superAdminDataMaster = superAdminDataMaster;
+		this.policeStationDataMaster = policeStationDataMaster;
+		this.userDataMaster = userDataMaster;
+		this.shopDataMaster = shopDataMaster;
 		this.deviceDataMaster = deviceDataMaster;
 	}
+
 
 
 	public EventImageDetails() {

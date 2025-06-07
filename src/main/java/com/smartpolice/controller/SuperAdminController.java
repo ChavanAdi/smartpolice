@@ -47,11 +47,5 @@ public class SuperAdminController {
 		return new ResponseEntity<SuperAdminDataMaster>(dataMaster, HttpStatus.OK);
 	}
 	
-	@GetMapping("/eventByCaseIdAndStatus")
-	public ResponseEntity<?> getEventsByCaseIdAndStatus(@RequestBody ImageDto imageDto) {
-
-		List<EventImageDetails> getEventsDataByCaseIdAndStatus = imageService.findByCaseIdAndStatus(imageDto.getCaseId(), imageDto.getStatus());
-       System.out.println("TotalEventImages------------------------>>>>>>"+getEventsDataByCaseIdAndStatus.size());
-		return new ResponseEntity(getEventsDataByCaseIdAndStatus, HttpStatus.OK);
-	}
+	
 }

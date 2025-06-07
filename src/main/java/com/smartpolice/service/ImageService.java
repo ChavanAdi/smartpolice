@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.smartpolice.constants.CaseStatus;
+import com.smartpolice.dto.EventImageFullResponseDTO;
 import com.smartpolice.dto.ImageDto;
 import com.smartpolice.entity.EventImageDetails;
 
@@ -31,8 +32,8 @@ public interface ImageService {
 	  Following  Method Is Responsible to get one Object Based on CaseId and Status
 	*/
 	
-	List<EventImageDetails> findOneRecordPerCaseIdByStatus(CaseStatus status);
+	List<EventImageFullResponseDTO> findOneRecordPerCaseIdByStatus(CaseStatus status);
 	
     //Following Method is Responsible to get EventImageDetail Using CaseId and Status
-	List<EventImageDetails> findByCaseIdAndStatus(String caseId, CaseStatus status);
+	List<EventImageFullResponseDTO> findByCaseIdAndStatus(String caseId, CaseStatus status);
 }

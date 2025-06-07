@@ -1,6 +1,7 @@
 package com.smartpolice.serviceImpl;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -50,6 +51,7 @@ public class ShopDataMasterServiceImpl implements ShopService {
 		shopDataMaster.setSuperAdminDataMaster(superAdminDataMaster);
 		shopDataMaster.setPoliceStationDataMaster(policeStationDataMaster);
 		shopDataMaster.setUserDataMaster(userDataMaster);
+		shopDataMaster.setRegistrationDate(LocalDateTime.now());
 		try {
 			shopDataMaster.setShopImage(file.getBytes());
 		} catch (IOException e) {

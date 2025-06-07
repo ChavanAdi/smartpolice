@@ -2,25 +2,21 @@ package com.smartpolice.controller;
 
 import java.util.List;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smartpolice.constants.CaseStatus;
-import com.smartpolice.dto.ImageDto;
+import com.smartpolice.dto.EventImageFullResponseDTO;
 import com.smartpolice.entity.EventImageDetails;
 import com.smartpolice.service.DeviceService;
 import com.smartpolice.service.ImageService;
 import com.smartpolice.service.PoliceStationService;
 import com.smartpolice.service.ShopService;
 import com.smartpolice.service.UserService;
-import com.smartpolice.serviceImpl.ImageServiceImpl;
-import com.smartpolice.serviceImpl.PoliceStationImpl;
 
 @RestController
 @RequestMapping("/api/dashboard")
@@ -91,21 +87,21 @@ public class SuperAdminDashBoardController {
 	@GetMapping("/unresolvedcase")
 	public ResponseEntity getOneRecordEachCaseIdUnResolved()
 	{
-		List<EventImageDetails> getRecords = imageServiceImpl.findOneRecordPerCaseIdByStatus(CaseStatus.UNRESOLVED);
+		List<EventImageFullResponseDTO> getRecords = imageServiceImpl.findOneRecordPerCaseIdByStatus(CaseStatus.UNRESOLVED);
 		return new ResponseEntity(getRecords,HttpStatus.OK);
 	}
 	
 	@GetMapping("/resolvedcase")
 	public ResponseEntity getOneRecordEachCaseIdResolved()
 	{
-		List<EventImageDetails> getRecords = imageServiceImpl.findOneRecordPerCaseIdByStatus(CaseStatus.RESOLVED);
+		List<EventImageFullResponseDTO> getRecords = imageServiceImpl.findOneRecordPerCaseIdByStatus(CaseStatus.RESOLVED);
 		return new ResponseEntity(getRecords,HttpStatus.OK);
 	}
 	
 	@GetMapping("/inprogresscase")
 	public ResponseEntity getOneRecordEachCaseIdInProgress()
 	{
-		List<EventImageDetails> getRecords = imageServiceImpl.findOneRecordPerCaseIdByStatus(CaseStatus.IN_PROGRESS);
+		List<EventImageFullResponseDTO> getRecords = imageServiceImpl.findOneRecordPerCaseIdByStatus(CaseStatus.IN_PROGRESS);
 		return new ResponseEntity(getRecords,HttpStatus.OK);
 	}
 	

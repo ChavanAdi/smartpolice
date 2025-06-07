@@ -1,7 +1,9 @@
 package com.smartpolice.entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,6 +27,7 @@ public class PoliceStationDataMaster {
 	private String policeStation_ContactNo;
 	private String policeStation_NoOfShops;
 	private String policeStationAddress; 
+	private LocalDateTime registrationDate;
 	private boolean policeStation_IsLogin;
 	@Lob
 	@Column(columnDefinition = "LONGBLOB")
@@ -46,111 +49,161 @@ public class PoliceStationDataMaster {
 	@OneToMany(mappedBy = "policeStationDataMaster")
 	@JsonIgnore
 	private List<DeviceDataMaster> allDeviceDataMaster;
+	
+	@OneToMany(mappedBy = "policeStationDataMaster",cascade=CascadeType.ALL)
+	@JsonIgnore
+	private List<EventImageDetails> allEventImageDataMaster;
 
+	
 	public long getPoliceStation_Id() {
 		return policeStation_Id;
 	}
+
 
 	public void setPoliceStation_Id(long policeStation_Id) {
 		this.policeStation_Id = policeStation_Id;
 	}
 
+
 	public String getPoliceStation_Name() {
 		return policeStation_Name;
 	}
+
 
 	public void setPoliceStation_Name(String policeStation_Name) {
 		this.policeStation_Name = policeStation_Name;
 	}
 
+
 	public String getPoliceStation_Location() {
 		return policeStation_Location;
 	}
+
 
 	public void setPoliceStation_Location(String policeStation_Location) {
 		this.policeStation_Location = policeStation_Location;
 	}
 
+
 	public String getPoliceStation_ContactNo() {
 		return policeStation_ContactNo;
 	}
+
 
 	public void setPoliceStation_ContactNo(String policeStation_ContactNo) {
 		this.policeStation_ContactNo = policeStation_ContactNo;
 	}
 
+
 	public String getPoliceStation_NoOfShops() {
 		return policeStation_NoOfShops;
 	}
+
 
 	public void setPoliceStation_NoOfShops(String policeStation_NoOfShops) {
 		this.policeStation_NoOfShops = policeStation_NoOfShops;
 	}
 
-	public boolean isPoliceStation_IsLogin() {
-		return policeStation_IsLogin;
-	}
-
-	public void setPoliceStation_IsLogin(boolean policeStation_IsLogin) {
-		this.policeStation_IsLogin = policeStation_IsLogin;
-	}
-
-	public byte[] getPoliceStation_Image() {
-		return policeStation_Image;
-	}
-
-	public void setPoliceStation_Image(byte[] policeStation_Image) {
-		this.policeStation_Image = policeStation_Image;
-	}
-
-	public SuperAdminDataMaster getSuperAdminDataMaster() {
-		return superAdminDataMaster;
-	}
-
-	public void setSuperAdminDataMaster(SuperAdminDataMaster superAdminDataMaster) {
-		this.superAdminDataMaster = superAdminDataMaster;
-	}
-
-	public List<UserDataMaster> getAllUserDataMaster() {
-		return allUserDataMaster;
-	}
-
-	public void setAllUserDataMaster(List<UserDataMaster> allUserDataMaster) {
-		this.allUserDataMaster = allUserDataMaster;
-	}
-
-	public List<ShopDataMaster> getAllshopDataMaster() {
-		return allshopDataMaster;
-	}
-
-	public void setAllshopDataMaster(List<ShopDataMaster> allshopDataMaster) {
-		this.allshopDataMaster = allshopDataMaster;
-	}
-
-	public List<DeviceDataMaster> getAllDeviceDataMaster() {
-		return allDeviceDataMaster;
-	}
-
-	public void setAllDeviceDataMaster(List<DeviceDataMaster> allDeviceDataMaster) {
-		this.allDeviceDataMaster = allDeviceDataMaster;
-	}
-
-	
 
 	public String getPoliceStationAddress() {
 		return policeStationAddress;
 	}
 
+
 	public void setPoliceStationAddress(String policeStationAddress) {
 		this.policeStationAddress = policeStationAddress;
 	}
 
+
+	public boolean isPoliceStation_IsLogin() {
+		return policeStation_IsLogin;
+	}
+
+
+	public void setPoliceStation_IsLogin(boolean policeStation_IsLogin) {
+		this.policeStation_IsLogin = policeStation_IsLogin;
+	}
+
+
+	public byte[] getPoliceStation_Image() {
+		return policeStation_Image;
+	}
+
+
+	public void setPoliceStation_Image(byte[] policeStation_Image) {
+		this.policeStation_Image = policeStation_Image;
+	}
+
+
+	public SuperAdminDataMaster getSuperAdminDataMaster() {
+		return superAdminDataMaster;
+	}
+
+
+	public void setSuperAdminDataMaster(SuperAdminDataMaster superAdminDataMaster) {
+		this.superAdminDataMaster = superAdminDataMaster;
+	}
+
+
+	public List<UserDataMaster> getAllUserDataMaster() {
+		return allUserDataMaster;
+	}
+
+
+	public void setAllUserDataMaster(List<UserDataMaster> allUserDataMaster) {
+		this.allUserDataMaster = allUserDataMaster;
+	}
+
+
+	public List<ShopDataMaster> getAllshopDataMaster() {
+		return allshopDataMaster;
+	}
+
+
+	public void setAllshopDataMaster(List<ShopDataMaster> allshopDataMaster) {
+		this.allshopDataMaster = allshopDataMaster;
+	}
+
+
+	public List<DeviceDataMaster> getAllDeviceDataMaster() {
+		return allDeviceDataMaster;
+	}
+
+
+	public void setAllDeviceDataMaster(List<DeviceDataMaster> allDeviceDataMaster) {
+		this.allDeviceDataMaster = allDeviceDataMaster;
+	}
+
+
+	public List<EventImageDetails> getAllEventImageDataMaster() {
+		return allEventImageDataMaster;
+	}
+
+
+	public void setAllEventImageDataMaster(List<EventImageDetails> allEventImageDataMaster) {
+		this.allEventImageDataMaster = allEventImageDataMaster;
+	}
+
+
+	public LocalDateTime getRegistrationDate() {
+		return registrationDate;
+	}
+
+
+	public void setRegistrationDate(LocalDateTime registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+
+
 	
+
+
 	public PoliceStationDataMaster(long policeStation_Id, String policeStation_Name, String policeStation_Location,
 			String policeStation_ContactNo, String policeStation_NoOfShops, String policeStationAddress,
-			boolean policeStation_IsLogin, byte[] policeStation_Image, SuperAdminDataMaster superAdminDataMaster,
-			List<UserDataMaster> allUserDataMaster, List<ShopDataMaster> allshopDataMaster,
-			List<DeviceDataMaster> allDeviceDataMaster) {
+			LocalDateTime registrationDate, boolean policeStation_IsLogin, byte[] policeStation_Image,
+			SuperAdminDataMaster superAdminDataMaster, List<UserDataMaster> allUserDataMaster,
+			List<ShopDataMaster> allshopDataMaster, List<DeviceDataMaster> allDeviceDataMaster,
+			List<EventImageDetails> allEventImageDataMaster) {
 		super();
 		this.policeStation_Id = policeStation_Id;
 		this.policeStation_Name = policeStation_Name;
@@ -158,13 +211,16 @@ public class PoliceStationDataMaster {
 		this.policeStation_ContactNo = policeStation_ContactNo;
 		this.policeStation_NoOfShops = policeStation_NoOfShops;
 		this.policeStationAddress = policeStationAddress;
+		this.registrationDate = registrationDate;
 		this.policeStation_IsLogin = policeStation_IsLogin;
 		this.policeStation_Image = policeStation_Image;
 		this.superAdminDataMaster = superAdminDataMaster;
 		this.allUserDataMaster = allUserDataMaster;
 		this.allshopDataMaster = allshopDataMaster;
 		this.allDeviceDataMaster = allDeviceDataMaster;
+		this.allEventImageDataMaster = allEventImageDataMaster;
 	}
+
 
 	public PoliceStationDataMaster() {
 		super();

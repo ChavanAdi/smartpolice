@@ -10,6 +10,7 @@ public class UserDto {
 	private String userMoNumber;
 	private String noOfShops;
 	private String isLogin;
+	private String registerDateAndTime;
 
 	public long getAdminId() {
 		return adminId;
@@ -60,8 +61,15 @@ public class UserDto {
 		this.isLogin = isLogin;
 	}
 
+	public String getRegisterDateAndTime() {
+		return registerDateAndTime;
+	}
+	public void setRegisterDateAndTime(String registerDateAndTime) {
+		this.registerDateAndTime = registerDateAndTime;
+	}
+	
 	public UserDto(long adminId, long policeId, String userFirstName, String userLastName, String userAddress,
-			String userMoNumber, String noOfShops, String isLogin) {
+			String userMoNumber, String noOfShops, String isLogin, String registerDateAndTime) {
 		super();
 		this.adminId = adminId;
 		this.policeId = policeId;
@@ -71,7 +79,7 @@ public class UserDto {
 		this.userMoNumber = userMoNumber;
 		this.noOfShops = noOfShops;
 		this.isLogin = isLogin;
-		
+		this.registerDateAndTime = registerDateAndTime;
 	}
 	public UserDto() {
 		super();

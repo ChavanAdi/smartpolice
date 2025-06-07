@@ -12,12 +12,17 @@ public class DeviceDto {
 	private String isInstall;
 	private String deviceLocation;
 	private String installDate;
+	private String registrationDate;
     private String deviceDesciption;
 	
     
     
+
+
+
 	public DeviceDto(long policeId, long adminId, long userId, long shopId, String deviceType, String deviceName,
-			String isActivate, String isInstall, String deviceLocation, String installDate, String deviceDesciption) {
+			String isActivate, String isInstall, String deviceLocation, String installDate, String registrationDate,
+			String deviceDesciption) {
 		super();
 		this.policeId = policeId;
 		this.adminId = adminId;
@@ -29,6 +34,7 @@ public class DeviceDto {
 		this.isInstall = isInstall;
 		this.deviceLocation = deviceLocation;
 		this.installDate = installDate;
+		this.registrationDate = registrationDate;
 		this.deviceDesciption = deviceDesciption;
 	}
 
@@ -162,6 +168,18 @@ public class DeviceDto {
 
 	public void setDeviceDesciption(String deviceDesciption) {
 		this.deviceDesciption = deviceDesciption;
+	}
+
+
+
+	public String getRegistrationDate() {
+		return registrationDate;
+	}
+
+
+
+	public void setRegistrationDate(String registrationDate) {
+		this.registrationDate = registrationDate;
 	}
 
 

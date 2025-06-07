@@ -1,6 +1,7 @@
 package com.smartpolice.serviceImpl;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -38,6 +39,7 @@ public class PoliceStationImpl implements PoliceStationService {
 		dataMaster.setPoliceStation_ContactNo(policeStationDto.getPoliceStation_ContactNo());
 		dataMaster.setPoliceStation_NoOfShops(policeStationDto.getPoliceStation_NoOfShops());
 		dataMaster.setPoliceStationAddress(policeStationDto.getPoliceStationAddress());
+		dataMaster.setRegistrationDate(LocalDateTime.now());
 		try {
 			dataMaster.setPoliceStation_Image(files.getBytes());
 		} catch (IOException e) {

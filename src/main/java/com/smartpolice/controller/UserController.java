@@ -1,4 +1,4 @@
-package com.smartpolice.controller;
+ package com.smartpolice.controller;
 
 import java.util.List;
 import java.util.Map;

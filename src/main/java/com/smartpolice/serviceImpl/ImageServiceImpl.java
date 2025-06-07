@@ -2,6 +2,7 @@ package com.smartpolice.serviceImpl;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,9 +12,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.smartpolice.config.ConfigurationService;
 import com.smartpolice.constants.CaseStatus;
+import com.smartpolice.dto.EventImageFullResponseDTO;
 import com.smartpolice.dto.ImageDto;
 import com.smartpolice.entity.DeviceDataMaster;
 import com.smartpolice.entity.EventImageDetails;
+import com.smartpolice.entity.PoliceStationDataMaster;
+import com.smartpolice.entity.ShopDataMaster;
+import com.smartpolice.entity.SuperAdminDataMaster;
+import com.smartpolice.entity.UserDataMaster;
 import com.smartpolice.exceptionhandler.ImageServiceException;
 import com.smartpolice.repository.ImageRepositry;
 import com.smartpolice.service.ImageService;
@@ -33,6 +39,10 @@ public class ImageServiceImpl implements ImageService {
 	public EventImageDetails saveImage(ImageDto imageDto, MultipartFile file) {
 		
 		DeviceDataMaster deviceDetail = deviceServiceImpl.getDeviceByDeviceName(imageDto.getDeviceName());
+		ShopDataMaster shopDataMaster = deviceDetail.getShopDataMaster();
+		UserDataMaster userDatamaster = shopDataMaster.getUserDataMaster();
+		PoliceStationDataMaster policeStationDataMaster = userDatamaster.getPoliceStationDataMaster();
+		SuperAdminDataMaster superAdminDataMaster =policeStationDataMaster.getSuperAdminDataMaster();
 		EventImageDetails imageDetails = new EventImageDetails();
 		try {
 			imageDetails.setFilename(file.getOriginalFilename());
@@ -44,7 +54,11 @@ public class ImageServiceImpl implements ImageService {
 			imageDetails.setCaseGeneratedDate(LocalDate.now());
 			imageDetails.setStatus(CaseStatus.UNRESOLVED);
 			imageDetails.setDeviceDataMaster(deviceDetail);
-
+			imageDetails.setShopDataMaster(shopDataMaster);
+			imageDetails.setUserDataMaster(userDatamaster);
+			imageDetails.setPoliceStationDataMaster(policeStationDataMaster);
+			imageDetails.setSuperAdminDataMaster(superAdminDataMaster);
+			
 		} catch (Exception e) {
 			new ImageServiceException(400, "Image Not Saved to Database");
 		}
@@ -112,18 +126,93 @@ public class ImageServiceImpl implements ImageService {
 	 * 
 	 */
 	@Override
-	public List<EventImageDetails> findOneRecordPerCaseIdByStatus(CaseStatus status) {
+	public List<EventImageFullResponseDTO> findOneRecordPerCaseIdByStatus(CaseStatus status) {
 		List<EventImageDetails> getOneRecordPerCase=imageRepositry.findOneRecordPerCaseIdByStatus(status);
-		return getOneRecordPerCase;
+		
+		List<EventImageFullResponseDTO> responseList = new ArrayList<EventImageFullResponseDTO>();
+
+	    for (EventImageDetails e : getOneRecordPerCase) {
+	        EventImageFullResponseDTO dto = new EventImageFullResponseDTO();
+           dto.setImage(e.getData());
+	      dto.setEventTime(e.getCaseActualTime().toString());
+	       dto.setCaseStatus(e.getStatus().toString());
+
+	        // Shop info
+	        if (e.getShopDataMaster() != null) {
+	            dto.setShopName(e.getShopDataMaster().getShopName());
+	            dto.setShopLocation(e.getShopDataMaster().getShopLocation());
+	            dto.setShopAddress(e.getShopDataMaster().getShopAddress());
+	        }
+
+	        // Police station info
+	        if (e.getPoliceStationDataMaster() != null) {
+	            dto.setPoliceStationName(e.getPoliceStationDataMaster().getPoliceStation_Name());
+	            dto.setPoliceStationAddress(e.getPoliceStationDataMaster().getPoliceStationAddress());
+	        }
+
+	        // User info
+	        if (e.getUserDataMaster() != null) {
+	            String firstName = e.getUserDataMaster().getUserFirstName();
+	            String lastName = e.getUserDataMaster().getUserLastName();
+	            String userContactNo = e.getUserDataMaster().getUserMoNumber();
+	            dto.setUserName(firstName + " " + lastName);
+	            dto.setUserContactNo(userContactNo);
+	        }
+
+	        // Device info
+	        if (e.getDeviceDataMaster() != null) {
+	            dto.setDeviceName(e.getDeviceDataMaster().getDeviceName());
+	        }
+
+	        responseList.add(dto);
+	    }
+		return responseList;
 	}
 
 	
 	//Following Method is responsible to get EventImageDetails Using CaseId and Status
 	
 	@Override
-	public List<EventImageDetails> findByCaseIdAndStatus(String caseId, CaseStatus status) {
+	public List<EventImageFullResponseDTO> findByCaseIdAndStatus(String caseId, CaseStatus status) {
 		List<EventImageDetails> allImagesBasedOnStatusAndCaseId= imageRepositry.findByCaseIdAndStatus(caseId, status);
-		 return	allImagesBasedOnStatusAndCaseId;	
+		List<EventImageFullResponseDTO> responseList = new ArrayList<EventImageFullResponseDTO>();
+
+	    for (EventImageDetails e : allImagesBasedOnStatusAndCaseId) {
+	        EventImageFullResponseDTO dto = new EventImageFullResponseDTO();
+           dto.setImage(e.getData());
+	      dto.setEventTime(e.getCaseActualTime().toString());
+	       dto.setCaseStatus(e.getStatus().toString());
+
+	        // Shop info
+	        if (e.getShopDataMaster() != null) {
+	            dto.setShopName(e.getShopDataMaster().getShopName());
+	            dto.setShopLocation(e.getShopDataMaster().getShopLocation());
+	            dto.setShopAddress(e.getShopDataMaster().getShopAddress());
+	        }
+
+	        // Police station info
+	        if (e.getPoliceStationDataMaster() != null) {
+	            dto.setPoliceStationName(e.getPoliceStationDataMaster().getPoliceStation_Name());
+	            dto.setPoliceStationAddress(e.getPoliceStationDataMaster().getPoliceStationAddress());
+	        }
+
+	        // User info
+	        if (e.getUserDataMaster() != null) {
+	            String firstName = e.getUserDataMaster().getUserFirstName();
+	            String lastName = e.getUserDataMaster().getUserLastName();
+	            String userContactNo = e.getUserDataMaster().getUserMoNumber();
+	            dto.setUserName(firstName + " " + lastName);
+	            dto.setUserContactNo(userContactNo);
+	        }
+
+	        // Device info
+	        if (e.getDeviceDataMaster() != null) {
+	            dto.setDeviceName(e.getDeviceDataMaster().getDeviceName());
+	        }
+
+	        responseList.add(dto);
+	    }
+		return responseList;
 	}
 
 	

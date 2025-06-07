@@ -1,6 +1,7 @@
 package com.smartpolice.serviceImpl;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -42,6 +43,7 @@ public class UserServiceImpl implements UserService{
 		data.setIsLogin("false");
 		data.setPoliceStationDataMaster(stationDataMaster);
 		data.setSuperAdminDataMaster(superAdminDataMaster);
+		data.setRegistratDateTime(LocalDateTime.now());
 		try {
 			data.setUserIamge(file.getBytes());
 		} catch (IOException e) {

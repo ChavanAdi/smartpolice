@@ -13,6 +13,7 @@ public class ShopDto {
 	private String shopLocation;
 	private String isActive;
 	private String shopClosingTime;
+	private String shopRegisteredDate;
 	public long getPoliceId() {
 		return policeId;
 	}
