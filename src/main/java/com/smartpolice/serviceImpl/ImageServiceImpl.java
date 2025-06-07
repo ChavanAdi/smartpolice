@@ -132,8 +132,11 @@ public class ImageServiceImpl implements ImageService {
 		List<EventImageFullResponseDTO> responseList = new ArrayList<EventImageFullResponseDTO>();
 
 	    for (EventImageDetails e : getOneRecordPerCase) {
+	    	System.out.println("-----===>>>>>"+e.getCaseId());
 	        EventImageFullResponseDTO dto = new EventImageFullResponseDTO();
+	    
            dto.setImage(e.getData());
+           dto.setCaseId(e.getCaseId().toString());
 	      dto.setEventTime(e.getCaseActualTime().toString());
 	       dto.setCaseStatus(e.getStatus().toString());
 
@@ -163,6 +166,7 @@ public class ImageServiceImpl implements ImageService {
 	        if (e.getDeviceDataMaster() != null) {
 	            dto.setDeviceName(e.getDeviceDataMaster().getDeviceName());
 	        }
+	      
 
 	        responseList.add(dto);
 	    }
@@ -179,6 +183,7 @@ public class ImageServiceImpl implements ImageService {
 
 	    for (EventImageDetails e : allImagesBasedOnStatusAndCaseId) {
 	        EventImageFullResponseDTO dto = new EventImageFullResponseDTO();
+	        dto.setCaseId(e.getCaseId());
            dto.setImage(e.getData());
 	      dto.setEventTime(e.getCaseActualTime().toString());
 	       dto.setCaseStatus(e.getStatus().toString());

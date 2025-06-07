@@ -5,6 +5,7 @@ import com.smartpolice.entity.EventImageDetails;
 public class EventImageFullResponseDTO {
    
     private byte[] image;
+   
     private String eventTime;
     private String caseStatus;
     private String shopName;
@@ -17,7 +18,7 @@ public class EventImageFullResponseDTO {
     private String userName;
     private String userContactNo;
     private String deviceName;
-
+    private String caseId;
     // Constructor
     public EventImageFullResponseDTO() {}
 
@@ -129,10 +130,24 @@ public class EventImageFullResponseDTO {
 
 
 
-	public EventImageFullResponseDTO(String eventTime, String caseStatus, String shopName, String shopLocation,
-			String shopAddress, String policeStationName, String policeStationAddress, String userName,
-			String userContactNo, String deviceName) {
+	public String getCaseId() {
+		return caseId;
+	}
+
+
+
+	public void setCaseId(String caseId) {
+		this.caseId = caseId;
+	}
+
+
+
+	public EventImageFullResponseDTO(byte[] image, String caseId, String eventTime, String caseStatus, String shopName,
+			String shopLocation, String shopAddress, String policeStationName, String policeStationAddress,
+			String userName, String userContactNo, String deviceName) {
 		super();
+		this.image = image;
+		this.caseId = caseId;
 		this.eventTime = eventTime;
 		this.caseStatus = caseStatus;
 		this.shopName = shopName;
@@ -144,6 +159,8 @@ public class EventImageFullResponseDTO {
 		this.userContactNo = userContactNo;
 		this.deviceName = deviceName;
 	}
+
+
 
 	
 
