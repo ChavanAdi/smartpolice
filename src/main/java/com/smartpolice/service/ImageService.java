@@ -36,4 +36,23 @@ public interface ImageService {
 	
     //Following Method is Responsible to get EventImageDetail Using CaseId and Status
 	List<EventImageFullResponseDTO> findByCaseIdAndStatus(String caseId, CaseStatus status);
+
+	
+	/*
+	 * Basically All Following Methods Used In PoliceStation Cpnsole 
+	  Thses Method is responsible to get one case object for each caseId based on status and policestation id 
+	*/
+	public List<EventImageFullResponseDTO> getOneRecordPerCaseByStatusAndPolice(CaseStatus status, Long policeId);
+	
+	//these following methods are used to count all cases based on status
+	
+	public long getAllUnResolvedCasesCountByPoliceStation(long policeId);
+	public long getAllResolvedCasesCountByPoliceStation(long policeId);
+	public long getAllInProgressCasesCountByPoliceStation(long policeId);
+	
+	/*
+	These Following Method is responsible to update Status all Same CaseId Cases Status
+	*/
+	
+	public void UpdateEventStatusUsingCaseId(String caseId,CaseStatus status);
 }

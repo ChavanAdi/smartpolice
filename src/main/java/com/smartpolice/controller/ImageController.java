@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.smartpolice.constants.CaseStatus;
 import com.smartpolice.dto.EventImageFullResponseDTO;
 import com.smartpolice.dto.ImageDto;
+import com.smartpolice.dto.UpdateStatusRequest;
 import com.smartpolice.entity.EventImageDetails;
 import com.smartpolice.service.ImageService;
 
@@ -66,7 +68,68 @@ public class ImageController {
 	       System.out.println("TotalEventImages------------------------>>>>>>"+getEventsDataByCaseIdAndStatus.size());
 			return new ResponseEntity(getEventsDataByCaseIdAndStatus, HttpStatus.OK);
 		}
-	 
 	
+	 
+	 
+	     /* 
+			These Following Rest API responsible to getting All Cases Based on Status like Resolved 
 		
+		 */
+	 
+	 @GetMapping("/unresolvedcaseByPoliceStation/{policeId}")
+		public ResponseEntity getOneRecordEachCaseIdUnResolved(@PathVariable("policeId") long policeId)
+		{
+			List<EventImageFullResponseDTO> getRecords = imageService.getOneRecordPerCaseByStatusAndPolice(CaseStatus.UNRESOLVED,policeId);
+			return new ResponseEntity(getRecords,HttpStatus.OK);
+		}
+		
+		@GetMapping("/resolvedcaseByPoliceStation/{policeId}")
+		public ResponseEntity getOneRecordEachCaseIdResolved(@PathVariable("policeId")long policeId)
+		{
+			List<EventImageFullResponseDTO> getRecords = imageService.getOneRecordPerCaseByStatusAndPolice(CaseStatus.RESOLVED,policeId);
+			return new ResponseEntity(getRecords,HttpStatus.OK);
+		}
+		
+		@GetMapping("/inprogresscaseByPoliceStation/{policeId}")
+		public ResponseEntity getOneRecordEachCaseIdInProgress(@PathVariable("policeId")long policeId)
+		{
+			List<EventImageFullResponseDTO> getRecords = imageService.getOneRecordPerCaseByStatusAndPolice(CaseStatus.RESOLVED,policeId);
+			return new ResponseEntity(getRecords,HttpStatus.OK);
+		}
+		
+		/*
+		
+		These Following API is responsible to get all Count Of Cases Using Status 
+		
+		*/
+		@GetMapping("/unresolvedcountByPoliceStation/{policeId}")
+		public ResponseEntity getAllUnResolvedCaseCount(@PathVariable("policeId")long policeId)
+		{
+			long unResolvedCasesCount= imageService.getAllUnResolvedCasesCountByPoliceStation(policeId);
+			return new ResponseEntity(unResolvedCasesCount,HttpStatus.OK);
+		}
+		
+		@GetMapping("/resolvedcountByPoliceStation/{policeId}")
+		public ResponseEntity getAllResolvedCaseCount(@PathVariable("policeId")long policeId)
+		{
+			long resolvedCasesCount = imageService.getAllResolvedCasesCountByPoliceStation(policeId);
+			return new ResponseEntity(resolvedCasesCount,HttpStatus.OK);
+		}
+		
+		@GetMapping("/inprogresscountByPoliceStation/{policeId}")
+		public ResponseEntity getAllInProgressCaseCount(@PathVariable("policeId")long policeId)
+		{
+			long inProgressCasesCount = imageService.getAllInProgressCasesCountByPoliceStation(policeId);
+			return new ResponseEntity(inProgressCasesCount,HttpStatus.OK);
+		}
+		
+		/*
+		These Following Api is Responsible to change Status Of Case
+		*/
+		@PutMapping("/eventimage/updateStatus")
+		public ResponseEntity<String> updateImageStatus(@RequestBody UpdateStatusRequest updateRequest) {
+			imageService.UpdateEventStatusUsingCaseId(updateRequest.getCaseId(), updateRequest.getStatus());
+		   return new ResponseEntity("Status Update Successfully",HttpStatus.OK);
+		}
+
 }

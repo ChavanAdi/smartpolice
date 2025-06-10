@@ -1,24 +1,24 @@
 package com.smartpolice.dto;
 
+import java.util.Arrays;
+
 import com.smartpolice.entity.EventImageDetails;
 
 public class EventImageFullResponseDTO {
-   
+	
+    private String caseId;
     private byte[] image;
-   
     private String eventTime;
     private String caseStatus;
     private String shopName;
     private String shopLocation;
     private String shopAddress;
-
     private String policeStationName;
     private String policeStationAddress;
-
     private String userName;
     private String userContactNo;
     private String deviceName;
-    private String caseId;
+   
     // Constructor
     public EventImageFullResponseDTO() {}
 
@@ -158,6 +158,17 @@ public class EventImageFullResponseDTO {
 		this.userName = userName;
 		this.userContactNo = userContactNo;
 		this.deviceName = deviceName;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "EventImageFullResponseDTO [image=" + Arrays.toString(image) + ", eventTime=" + eventTime
+				+ ", caseStatus=" + caseStatus + ", shopName=" + shopName + ", shopLocation=" + shopLocation
+				+ ", shopAddress=" + shopAddress + ", policeStationName=" + policeStationName
+				+ ", policeStationAddress=" + policeStationAddress + ", userName=" + userName + ", userContactNo="
+				+ userContactNo + ", deviceName=" + deviceName + ", caseId=" + caseId + "]";
 	}
 
 

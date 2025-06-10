@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,8 +52,8 @@ public class ImageServiceImpl implements ImageService {
 			imageDetails.setData(file.getBytes());
 			imageDetails.setDeviceName(imageDto.getDeviceName());
 			imageDetails.setCaseId(imageDto.getCaseId());
-			imageDetails.setCaseActualTime(LocalTime.now());
-			imageDetails.setCaseGeneratedDate(LocalDate.now());
+			imageDetails.setCaseActualTime(imageDto.getCaseGeneratedTime());
+			imageDetails.setCaseGeneratedDate(imageDto.getInProgressStatusDate());
 			imageDetails.setStatus(CaseStatus.UNRESOLVED);
 			imageDetails.setDeviceDataMaster(deviceDetail);
 			imageDetails.setShopDataMaster(shopDataMaster);
@@ -166,7 +168,7 @@ public class ImageServiceImpl implements ImageService {
 	        if (e.getDeviceDataMaster() != null) {
 	            dto.setDeviceName(e.getDeviceDataMaster().getDeviceName());
 	        }
-	      
+	         System.out.println("====================>>>>>>>>>>"+dto.toString());
 
 	        responseList.add(dto);
 	    }
@@ -221,6 +223,107 @@ public class ImageServiceImpl implements ImageService {
 	}
 
 	
+	/*
+	These method is responsible to get Only one object for each caseId based on status and policeStation Id
+	*/	
+	@Override
+	public List<EventImageFullResponseDTO> getOneRecordPerCaseByStatusAndPolice(CaseStatus status, Long policeId) {
+		
+
+		List<EventImageDetails> getOneRecordPerCase=imageRepositry.findOneImagePerCaseByStatusAndPolice(status, policeId);
+		
+		List<EventImageFullResponseDTO> responseList = new ArrayList<EventImageFullResponseDTO>();
+
+	    for (EventImageDetails e : getOneRecordPerCase) {
+	    	System.out.println("-----===>>>>>"+e.getCaseId());
+	        EventImageFullResponseDTO dto = new EventImageFullResponseDTO();
+	    
+           dto.setImage(e.getData());
+           dto.setCaseId(e.getCaseId().toString());
+	      dto.setEventTime(e.getCaseActualTime().toString());
+	       dto.setCaseStatus(e.getStatus().toString());
+
+	        // Shop info
+	        if (e.getShopDataMaster() != null) {
+	            dto.setShopName(e.getShopDataMaster().getShopName());
+	            dto.setShopLocation(e.getShopDataMaster().getShopLocation());
+	            dto.setShopAddress(e.getShopDataMaster().getShopAddress());
+	        }
+
+	        // Police station info
+	        if (e.getPoliceStationDataMaster() != null) {
+	            dto.setPoliceStationName(e.getPoliceStationDataMaster().getPoliceStation_Name());
+	            dto.setPoliceStationAddress(e.getPoliceStationDataMaster().getPoliceStationAddress());
+	        }
+
+	        // User info
+	        if (e.getUserDataMaster() != null) {
+	            String firstName = e.getUserDataMaster().getUserFirstName();
+	            String lastName = e.getUserDataMaster().getUserLastName();
+	            String userContactNo = e.getUserDataMaster().getUserMoNumber();
+	            dto.setUserName(firstName + " " + lastName);
+	            dto.setUserContactNo(userContactNo);
+	        }
+
+	        // Device info
+	        if (e.getDeviceDataMaster() != null) {
+	            dto.setDeviceName(e.getDeviceDataMaster().getDeviceName());
+	        }
+	         System.out.println("====================>>>>>>>>>>"+dto.toString());
+
+	        responseList.add(dto);
+	    }
+		return responseList;
+	
+	}
+
+	/*
+      Following Methods is Responsible to Get Count of Cases based on status and police id	
+	
+	*/	@Override
+	public long getAllUnResolvedCasesCountByPoliceStation(long policeId) {
+		long count= imageRepositry.countUnresolvedCasesByPoliceId(policeId);
+		return count;
+	}
+
+	@Override
+	public long getAllResolvedCasesCountByPoliceStation(long policeId) {
+		long count= imageRepositry.countResolvedCasesByPoliceId(policeId);
+		return count;
+	}
+
+	@Override
+	public long getAllInProgressCasesCountByPoliceStation(long policeId) {
+		long count =imageRepositry.countInProgressCasesByPoliceId(policeId);
+		return count;
+	}
+
+	/*
+	These Following Method is responsible to change status using CaseId 
+	*
+	*/
+	@Transactional
+	@Override
+	public void UpdateEventStatusUsingCaseId(String caseId, CaseStatus status) {
+		
+		List<EventImageDetails> allCaseIdData= imageRepositry.findByCaseId(caseId);
+		allCaseIdData.forEach(eventImage->
+				{
+					if(eventImage.getStatus().equals(CaseStatus.UNRESOLVED))
+					{
+						eventImage.setCaseInProgressStatusTime(LocalTime.now());
+						eventImage.setCaseInProgressStatusDate(LocalDate.now());
+						eventImage.setStatus(status);
+					}
+					else
+					{
+						eventImage.setStatus(status);
+						eventImage.setCaseResolvedStatusTime(LocalTime.now());
+						eventImage.setCaseResolvedStatusDate(LocalDate.now());
+					}
+				});
+		
+	}
 	
 	
 }
