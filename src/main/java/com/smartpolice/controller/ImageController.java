@@ -93,7 +93,7 @@ public class ImageController {
 		@GetMapping("/inprogresscaseByPoliceStation/{policeId}")
 		public ResponseEntity getOneRecordEachCaseIdInProgress(@PathVariable("policeId")long policeId)
 		{
-			List<EventImageFullResponseDTO> getRecords = imageService.getOneRecordPerCaseByStatusAndPolice(CaseStatus.RESOLVED,policeId);
+			List<EventImageFullResponseDTO> getRecords = imageService.getOneRecordPerCaseByStatusAndPolice(CaseStatus.IN_PROGRESS,policeId);
 			return new ResponseEntity(getRecords,HttpStatus.OK);
 		}
 		
